@@ -7,8 +7,8 @@ export async function POST() {
     // Clear the cookie with same settings as login
     response.cookies.set('admin-session', '', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+      secure: false, // Set to false for HTTP testing
+      sameSite: 'lax',
       maxAge: 0, // Expire immediately
       path: '/',
     });

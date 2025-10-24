@@ -16,11 +16,10 @@ export async function POST(request: NextRequest) {
       const response = NextResponse.json({ success: true });
       response.cookies.set('admin-session', sessionToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+        secure: false, // Set to false for HTTP testing
+        sameSite: 'lax',
         maxAge: 24 * 60 * 60, // 24 hours
         path: '/',
-        domain: process.env.NODE_ENV === 'production' ? undefined : undefined, // Let browser set domain
       });
 
       return response;

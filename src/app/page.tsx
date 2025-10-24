@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import FontCard from '@/components/FontCard';
 import FontPreview from '@/components/FontPreview';
-import SearchBar from '@/components/SearchBar';
-import CategoryFilter from '@/components/CategoryFilter';
 import { downloadAllFonts } from '@/utils/download';
 
 interface Font {
@@ -17,8 +15,6 @@ interface Font {
 export default function Home() {
   const [fonts, setFonts] = useState<Font[]>([]);
   const [selectedFont, setSelectedFont] = useState<Font | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
   const [customText, setCustomText] = useState('ཨོཾ་མ་ཎི་པདྨེ་ཧཱུྃ');
   const [isDownloadingAll, setIsDownloadingAll] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -44,13 +40,7 @@ export default function Home() {
     loadFonts();
   }, []);
 
-  const categories = ['All', ...Array.from(new Set(fonts.map(font => font.category)))];
-  
-  const filteredFonts = fonts.filter(font => {
-    const matchesSearch = font.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || font.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const filteredFonts = fonts;
 
   const handleDownloadAll = async () => {
     setIsDownloadingAll(true);
@@ -61,94 +51,28 @@ export default function Home() {
     }
   };
 
-  const refreshFonts = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch('/api/fonts');
-      if (response.ok) {
-        const data = await response.json();
-        setFonts(data.fonts);
-      }
-    } catch (error) {
-      console.error('Error refreshing fonts:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm shadow-lg border-b border-indigo-200/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div className="text-center lg:text-left">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Monlam Font Viewer
-              </h1>
-              <p className="text-slate-600 mt-1 sm:mt-2 text-sm sm:text-base lg:text-lg">Preview and compare Monlam Tibetan fonts with beautiful typography</p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
-              <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-              <CategoryFilter 
-                categories={categories} 
-                selectedCategory={selectedCategory} 
-                setSelectedCategory={setSelectedCategory} 
-              />
-              <button
-                onClick={refreshFonts}
-                disabled={isLoading}
-                className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-lg sm:rounded-xl transition-all duration-300 font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <svg className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                <span className="hidden sm:inline">Refresh</span>
-              </button>
-              <a
-                href="/admin/login"
-                className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-slate-500 to-gray-600 hover:from-slate-600 hover:to-gray-700 text-white rounded-lg sm:rounded-xl transition-all duration-300 font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-105"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-                <span className="hidden sm:inline">Admin</span>
-              </a>
-              <button
-                onClick={handleDownloadAll}
-                disabled={isDownloadingAll}
-                className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-xl transition-all duration-300 whitespace-nowrap font-semibold text-sm sm:text-base ${
-                  isDownloadingAll 
-                    ? 'bg-gray-400 cursor-not-allowed' 
-                    : 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 hover:scale-105 shadow-lg hover:shadow-xl'
-                } text-white`}
-              >
-                {isDownloadingAll ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    Downloading...
-                  </>
-                ) : (
-                  <>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    Download All
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Custom Text Input */}
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-indigo-200/50 p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
-          <label htmlFor="custom-text" className="block text-base sm:text-lg font-semibold text-slate-700 mb-3 sm:mb-4">
-            ✍️ Custom Text (Tibetan)
-          </label>
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <label htmlFor="custom-text" className="block text-base sm:text-lg font-semibold text-slate-700">
+              ✍️ Custom Text (Tibetan)
+            </label>
+            <button
+              onClick={() => setCustomText('')}
+              className="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-all duration-200"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              Clear
+            </button>
+          </div>
           <textarea
             id="custom-text"
             value={customText}
@@ -157,6 +81,33 @@ export default function Home() {
             rows={2}
             placeholder="Enter Tibetan text to preview..."
           />
+        </div>
+
+        {/* Download All Button */}
+        <div className="flex justify-center mb-6 sm:mb-8">
+          <button
+            onClick={handleDownloadAll}
+            disabled={isDownloadingAll}
+            className={`flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-xl transition-all duration-300 whitespace-nowrap font-semibold text-base sm:text-lg ${
+              isDownloadingAll 
+                ? 'bg-gray-400 cursor-not-allowed' 
+                : 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 hover:scale-105 shadow-lg hover:shadow-xl'
+            } text-white`}
+          >
+            {isDownloadingAll ? (
+              <>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                Downloading...
+              </>
+            ) : (
+              <>
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Download All Fonts
+              </>
+            )}
+          </button>
         </div>
 
         {/* Font Grid */}
@@ -199,6 +150,7 @@ export default function Home() {
           font={selectedFont}
           sampleText={customText}
           onClose={() => setSelectedFont(null)}
+          onTextChange={setCustomText}
         />
       )}
     </div>

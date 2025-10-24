@@ -38,7 +38,7 @@ export default function FontCard({ font, sampleText, onClick, isSelected }: Font
             <h3 className="font-bold text-slate-800 text-sm sm:text-base truncate pr-2">{font.name}</h3>
             <button
               onClick={handleDownload}
-              className="text-slate-400 hover:text-indigo-600 transition-all duration-300 p-1 sm:p-2 hover:bg-indigo-50 rounded-lg hover:scale-110 flex-shrink-0"
+              className="text-indigo-600 hover:text-white hover:bg-indigo-600 transition-all duration-300 p-1 sm:p-2 bg-indigo-50 hover:shadow-lg rounded-lg hover:scale-110 flex-shrink-0"
               title="Download font"
             >
               <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,11 +56,24 @@ export default function FontCard({ font, sampleText, onClick, isSelected }: Font
         </div>
         
         <div className="mb-3 sm:mb-4">
-          <div
-            className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-slate-800 font-medium"
-            style={{ fontFamily }}
-          >
-            {sampleText}
+          <div className="mb-2">
+            <div
+              className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-slate-800 font-medium"
+              style={{ fontFamily }}
+            >
+              {sampleText}
+            </div>
+          </div>
+          
+          {/* Tibetan Alphabet Preview */}
+          <div className="bg-gradient-to-br from-slate-50 to-indigo-50 rounded-lg p-3 border border-slate-200">
+            <div className="text-xs text-slate-600 font-semibold mb-2">🔤 Alphabet Preview</div>
+            <div
+              className="text-sm sm:text-base leading-tight text-slate-700"
+              style={{ fontFamily }}
+            >
+              ཀ་ཁ་ག་ང་ཅ་ཆ་ཇ་ཉ་ཏ་ཐ་ད་ན་པ་ཕ་བ་མ་ཙ་ཚ་ཛ་ཝ་ཞ་ཟ་འ་ཡ་ར་ལ་ཤ་ས་ཧ་ཨ
+            </div>
           </div>
         </div>
         

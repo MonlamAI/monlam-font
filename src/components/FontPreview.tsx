@@ -15,15 +15,28 @@ const sampleTexts = [
   'ཨོཾ་མ་ཎི་པདྨེ་ཧཱུྃ་ཧྲཱིཿ',
   'ཨོཾ་ཨཱཿཧཱུྃ་བཛྲ་གུ་རུ་པདྨ་སིདྡྷི་ཧཱུྃ'
 ];
+
+// Full Tibetan alphabet and common combinations
+const tibetanAlphabet = [
+  'ཀ་ཁ་ག་ང་ཅ་ཆ་ཇ་ཉ་ཏ་ཐ་ད་ན་པ་ཕ་བ་མ་ཙ་ཚ་ཛ་ཝ་ཞ་ཟ་འ་ཡ་ར་ལ་ཤ་ས་ཧ་ཨ',
+  'ཀི་ཁི་གི་ངི་ཅི་ཆི་ཇི་ཉི་ཏི་ཐི་དི་ནི་པི་ཕི་བི་མི་ཙི་ཚི་ཛི་ཝི་ཞི་ཟི་འི་ཡི་རི་ལི་ཤི་སི་ཧི་ཨི',
+  'ཀུ་ཁུ་གུ་ངུ་ཅུ་ཆུ་ཇུ་ཉུ་ཏུ་ཐུ་དུ་ནུ་པུ་ཕུ་བུ་མུ་ཙུ་ཚུ་ཛུ་ཝུ་ཞུ་ཟུ་འུ་ཡུ་རུ་ལུ་ཤུ་སུ་ཧུ་ཨུ',
+  'ཀེ་ཁེ་གེ་ངེ་ཅེ་ཆེ་ཇེ་ཉེ་ཏེ་ཐེ་དེ་ནེ་པེ་ཕེ་བེ་མེ་ཙེ་ཚེ་ཛེ་ཝེ་ཞེ་ཟེ་འེ་ཡེ་རེ་ལེ་ཤེ་སེ་ཧེ་ཨེ',
+  'ཀོ་ཁོ་གོ་ངོ་ཅོ་ཆོ་ཇོ་ཉོ་ཏོ་ཐོ་དོ་ནོ་པོ་ཕོ་བོ་མོ་ཙོ་ཚོ་ཛོ་ཝོ་ཞོ་ཟོ་འོ་ཡོ་རོ་ལོ་ཤོ་སོ་ཧོ་ཨོ',
+  'ཀྲ་ཁྲ་གྲ་ངྲ་ཅྲ་ཆྲ་ཇྲ་ཉྲ་ཏྲ་ཐྲ་དྲ་ནྲ་པྲ་ཕྲ་བྲ་མྲ་ཙྲ་ཚྲ་ཛྲ་ཝྲ་ཞྲ་ཟྲ་འྲ་ཡྲ་རྲ་ལྲ་ཤྲ་སྲ་ཧྲ་ཨྲ',
+  'ཀྱ་ཁྱ་གྱ་ངྱ་ཅྱ་ཆྱ་ཇྱ་ཉྱ་ཏྱ་ཐྱ་དྱ་ནྱ་པྱ་ཕྱ་བྱ་མྱ་ཙྱ་ཚྱ་ཛྱ་ཝྱ་ཞྱ་ཟྱ་འྱ་ཡྱ་རྱ་ལྱ་ཤྱ་སྱ་ཧྱ་ཨྱ',
+  'ཀླ་ཁླ་གླ་ངླ་ཅླ་ཆླ་ཇླ་ཉླ་ཏླ་ཐླ་དླ་ནླ་པླ་ཕླ་བླ་མླ་ཙླ་ཚླ་ཛླ་ཝླ་ཞླ་ཟླ་འླ་ཡླ་རླ་ལླ་ཤླ་སླ་ཧླ་ཨླ'
+];
 import { downloadFont } from '@/utils/download';
 
 interface FontPreviewProps {
   font: Font;
   sampleText: string;
   onClose: () => void;
+  onTextChange: (text: string) => void;
 }
 
-export default function FontPreview({ font, sampleText, onClose }: FontPreviewProps) {
+export default function FontPreview({ font, sampleText, onClose, onTextChange }: FontPreviewProps) {
   const fontFamily = `"${font.name}", sans-serif`;
 
   const handleDownload = async () => {
@@ -31,21 +44,19 @@ export default function FontPreview({ font, sampleText, onClose }: FontPreviewPr
   };
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-50">
-      <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-2xl max-w-5xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto border border-indigo-200/50">
+    <div 
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-50"
+      onClick={onClose}
+    >
+      <div 
+        className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-2xl max-w-5xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto border border-indigo-200/50"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-6 lg:p-8 border-b border-indigo-200/50 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-t-2xl sm:rounded-t-3xl">
           <div className="mb-4 sm:mb-0">
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{font.name}</h2>
             <p className="text-slate-600 mt-1 sm:mt-2 text-sm sm:text-base lg:text-lg">
-              <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                font.category === 'Monlam Classic' ? 'bg-purple-100 text-purple-700' :
-                font.category === 'Monlam Unicode' ? 'bg-blue-100 text-blue-700' :
-                'bg-slate-100 text-slate-700'
-              }`}>
-                {font.category}
-              </span>
-              <span className="mx-2">•</span>
               <span className="text-slate-500 font-mono">{font.filename}</span>
             </p>
           </div>
@@ -78,11 +89,35 @@ export default function FontPreview({ font, sampleText, onClose }: FontPreviewPr
             <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-4 sm:mb-6 flex items-center gap-2">
               ✍️ Custom Text Preview
             </h3>
-            <div
-              className="text-2xl sm:text-3xl lg:text-4xl leading-relaxed text-slate-800 p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl sm:rounded-2xl border border-indigo-200/50 shadow-inner"
-              style={{ fontFamily }}
-            >
-              {sampleText}
+            <div>
+              {/* Editable Text Input */}
+              <textarea
+                value={sampleText}
+                onChange={(e) => onTextChange(e.target.value)}
+                className="w-full px-4 py-3 border-2 border-indigo-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-indigo-200/50 focus:border-indigo-400 transition-all duration-300 text-lg sm:text-xl resize-none"
+                rows={3}
+                placeholder="Enter Tibetan text to preview..."
+                style={{ fontFamily }}
+              />
+            </div>
+          </div>
+
+          {/* Tibetan Alphabet */}
+          <div className="mb-6 sm:mb-8 lg:mb-10">
+            <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-4 sm:mb-6 flex items-center gap-2">
+              🔤 Tibetan Alphabet
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              {tibetanAlphabet.map((alphabet, index) => (
+                <div key={index} className="p-4 sm:p-6 bg-gradient-to-br from-slate-50 to-indigo-50 rounded-lg sm:rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300">
+                  <div
+                    className="text-lg sm:text-xl lg:text-2xl leading-relaxed text-slate-800 font-medium"
+                    style={{ fontFamily }}
+                  >
+                    {alphabet}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -114,10 +149,6 @@ export default function FontPreview({ font, sampleText, onClose }: FontPreviewPr
               <div className="bg-white/70 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4 border border-indigo-200/30">
                 <span className="font-semibold text-indigo-700 text-sm sm:text-base">Name:</span>
                 <span className="ml-2 text-slate-700 font-medium text-sm sm:text-base">{font.name}</span>
-              </div>
-              <div className="bg-white/70 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4 border border-indigo-200/30">
-                <span className="font-semibold text-indigo-700 text-sm sm:text-base">Category:</span>
-                <span className="ml-2 text-slate-700 font-medium text-sm sm:text-base">{font.category}</span>
               </div>
               <div className="bg-white/70 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4 border border-indigo-200/30">
                 <span className="font-semibold text-indigo-700 text-sm sm:text-base">Filename:</span>

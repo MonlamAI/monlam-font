@@ -1,24 +1,16 @@
 # Monlam Font Viewer
 
-A Next.js web application for previewing and comparing Monlam Tibetan fonts, similar to wordmark.it. This application allows you to view all Monlam fonts in your collection with custom text input and detailed font information.
+A beautiful web application for previewing and downloading Monlam Tibetan fonts. Built with Next.js, React, and Tailwind CSS.
 
 ## Features
 
-- **Font Preview**: View all Monlam fonts with sample text
-- **Custom Text Input**: Enter your own Tibetan text to preview
-- **Search & Filter**: Search fonts by name and filter by category
-- **Detailed View**: Click on any font to see detailed preview with multiple sample texts
-- **Responsive Design**: Works on desktop and mobile devices
-- **Font Loading**: Automatic font loading with progress indicator
+- 🔤 **Tibetan Alphabet Preview** - See complete character sets for each font
+- ✍️ **Custom Text Input** - Preview your own Tibetan text
+- 📱 **Responsive Design** - Works on desktop and mobile
+- ⬇️ **Download Fonts** - Download individual fonts or all fonts at once
+- 🎨 **Beautiful UI** - Modern, clean interface with gradients and animations
 
-## Available Fonts
-
-The application includes the following Monlam font categories:
-
-- **Monlam Classic**: Monlam Ouchan series (1-4) - Traditional Monlam fonts
-- **Monlam Unicode**: Unicode versions of Monlam fonts for modern applications
-
-## Getting Started
+## Quick Start
 
 ### Prerequisites
 
@@ -27,96 +19,191 @@ The application includes the following Monlam font categories:
 
 ### Installation
 
-1. Navigate to the project directory:
+1. **Clone the repository**
+
+   ```bash
+   git clone <repository-url>
+   cd tibetan-font-viewer
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Open in browser**
+   ```
+   http://localhost:3000
+   ```
+
+### Production Build
 
 ```bash
-cd tibetan-font-viewer
+npm run build
+npm start
 ```
 
-2. Install dependencies:
+## Font Management
 
-```bash
-npm install
-```
+### Adding New Fonts
 
-3. Start the development server:
+Since the admin panel has been removed, you can add fonts manually:
 
-```bash
-npm run dev
-```
+1. **Add font files to the fonts directory**
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+   ```bash
+   # Copy your .ttf or .otf files to:
+   public/fonts/
+   ```
 
-## Usage
+2. **Supported file formats**
 
-1. **Browse Fonts**: The main page shows all available fonts in a grid layout
-2. **Custom Text**: Enter your own Tibetan text in the text area at the top
-3. **Search**: Use the search bar to find specific fonts by name
-4. **Filter**: Use the category dropdown to filter fonts by type
-5. **Preview**: Click on any font card to see a detailed preview
-6. **Close Preview**: Click the X button or outside the modal to close
+   - `.ttf` (TrueType)
+   - `.otf` (OpenType)
 
-## Font Categories
+3. **Font naming**
 
-- **All**: Shows all available fonts
-- **Monlam**: Monlam font series
-- **Monlam Unicode**: Unicode versions of Monlam fonts
-- **TCRC**: TCRC font family
-- **Classic**: Traditional fonts
-- **Unicode**: Standard Unicode fonts
+   - Use descriptive names
+   - Avoid special characters
+   - Example: `Monlam-New-Font.ttf`
 
-## Sample Texts
+4. **Restart the application**
+   ```bash
+   npm run build
+   npm start
+   ```
 
-The application includes various Tibetan sample texts:
+### Removing Fonts
 
-- Om Mani Padme Hum (ཨོཾ་མ་ཎི་པདྨེ་ཧཱུྃ)
-- Tibetan alphabet sequences
-- Common Tibetan phrases
-- Religious texts
+1. **Delete font files**
 
-## Technical Details
+   ```bash
+   # Remove unwanted fonts from:
+   public/fonts/
+   ```
 
-- Built with Next.js 14 and TypeScript
-- Styled with Tailwind CSS
-- Font loading with progress tracking
-- Responsive design for all screen sizes
-- Font fallbacks for better compatibility
+2. **Restart the application**
+   ```bash
+   npm run build
+   npm start
+   ```
+
+### Font Categories
+
+Fonts are automatically categorized based on filename:
+
+- **Monlam Classic** - Contains "monlam ouchan"
+- **Monlam Unicode** - Contains "monlam uni" or "monlam"
+- **TCRC** - Contains "tcrc"
+- **Classic** - Contains "himalaya"
+- **Other** - Default category
 
 ## Project Structure
 
 ```
-src/
-├── app/
-│   ├── layout.tsx          # Root layout with font loading
-│   ├── page.tsx           # Main application page
-│   └── globals.css        # Global styles
-├── components/
-│   ├── FontCard.tsx       # Individual font preview card
-│   ├── FontPreview.tsx    # Detailed font preview modal
-│   ├── FontLoader.tsx     # Font loading component
-│   ├── SearchBar.tsx      # Search functionality
-│   └── CategoryFilter.tsx # Category filtering
-├── data/
-│   └── fonts.ts          # Font definitions and sample texts
-└── utils/
-    └── fontLoader.ts     # Font loading utilities
+tibetan-font-viewer/
+├── public/
+│   └── fonts/           # Font files directory
+├── src/
+│   ├── app/            # Next.js app directory
+│   │   ├── page.tsx    # Main page
+│   │   └── api/        # API routes
+│   ├── components/     # React components
+│   └── utils/          # Utility functions
+├── Dockerfile          # Docker configuration
+├── docker-compose.yml  # Docker Compose setup
+└── nginx.conf          # Nginx configuration
 ```
 
-## Customization
+## API Endpoints
 
-To add new fonts:
+- `GET /api/fonts` - Get list of available fonts
+- `GET /api/health` - Health check endpoint
 
-1. Add the font file to `public/fonts/`
-2. Update the `tibetanFonts` array in `src/data/fonts.ts`
-3. The font will automatically appear in the application
+## Deployment
 
-## Browser Support
+### Docker Deployment
 
-- Chrome/Chromium 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
+1. **Build Docker image**
+
+   ```bash
+   docker build -t monlam-font-viewer .
+   ```
+
+2. **Run with Docker Compose**
+   ```bash
+   docker-compose up -d
+   ```
+
+### Nginx Deployment
+
+1. **Use the provided Nginx configuration**
+
+   ```bash
+   cp nginx.conf /etc/nginx/sites-available/
+   ```
+
+2. **Enable the site**
+   ```bash
+   ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
+   ```
+
+## Development
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
+
+### Adding New Features
+
+1. **Components** - Add to `src/components/`
+2. **API Routes** - Add to `src/app/api/`
+3. **Utilities** - Add to `src/utils/`
+
+## Troubleshooting
+
+### Fonts Not Loading
+
+1. **Check file format** - Ensure fonts are `.ttf` or `.otf`
+2. **Check file location** - Fonts must be in `public/fonts/`
+3. **Restart application** - Run `npm run build && npm start`
+
+### Build Errors
+
+1. **Clear cache** - Delete `.next` folder and rebuild
+2. **Check dependencies** - Run `npm install`
+3. **TypeScript errors** - Check for type mismatches
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## License
 
-This project is open source and available under the MIT License.
+This project is licensed under the MIT License.
+
+## Support
+
+For issues and questions:
+
+1. Check the troubleshooting section
+2. Review the project structure
+3. Open an issue on GitHub
+
+---
+
+**Monlam Font Viewer** - Beautiful Tibetan font preview and download experience 🎉

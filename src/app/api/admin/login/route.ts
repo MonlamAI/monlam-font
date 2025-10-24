@@ -17,8 +17,10 @@ export async function POST(request: NextRequest) {
       response.cookies.set('admin-session', sessionToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
         maxAge: 24 * 60 * 60, // 24 hours
+        path: '/',
+        domain: process.env.NODE_ENV === 'production' ? undefined : undefined, // Let browser set domain
       });
 
       return response;

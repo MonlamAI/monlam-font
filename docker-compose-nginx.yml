@@ -46,3 +46,4 @@ services:
 networks:
   monlam-network:
     driver: bridge
+

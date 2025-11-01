@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { readdir } from 'fs/promises';
 import { join } from 'path';
+import { getTibetanFontName } from '@/utils/fontNames';
 
 export async function GET() {
   try {
@@ -16,21 +17,31 @@ export async function GET() {
         // Extract font name from filename
         const name = file.replace(/\.(ttf|otf)$/i, '');
         
-        // Determine category based on filename
-        let category = 'Monlam Classic';
-        if (name.toLowerCase().includes('uni')) {
-          category = 'Monlam Unicode';
-        } else if (name.toLowerCase().includes('tcrc')) {
-          category = 'TCRC';
-        } else if (name.toLowerCase().includes('himalaya')) {
-          category = 'Classic';
-        } else if (name.toLowerCase().includes('tibetanunicode')) {
-          category = 'Unicode';
+        // Get Tibetan name
+        const tibetanName = getTibetanFontName(name);
+        
+        // Determine category based on filename - Tibetan categories
+        let category = 'དབུ་ཅན།'; // Default to Uchen
+        const nameLower = name.toLowerCase();
+        
+        if (nameLower.includes('ouchan') || nameLower.includes('lakdi ouchen')) {
+          category = 'དབུ་ཅན།';
+        } else if (nameLower.includes('tikrang') || nameLower.includes('tiktong')) {
+          category = 'དབུ་མེད་';
+        } else if (nameLower.includes('chouk') || nameLower.includes('tsikmachok')) {
+          category = 'འཁྱུག';
+        } else if (nameLower.includes('lanza')) {
+          category = 'ལཉྫ།';
+        } else if (nameLower.includes('dutsa') || nameLower.includes('paytsik')) {
+          category = 'འབྲུ་ཚ།';
+        } else if (nameLower.includes('sans serif') || nameLower.includes('yig-chong')) {
+          category = 'དབུ་ཅན།'; // Default serif fonts to Uchen
         }
         
         return {
           id: name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
           name: name,
+          tibetanName: tibetanName,
           filename: file,
           category: category
         };
@@ -45,3 +56,4 @@ export async function GET() {
     );
   }
 }
+

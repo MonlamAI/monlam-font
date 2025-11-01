@@ -1,7 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { loadFonts, preloadFonts } from '@/utils/fontLoader';
+import { loadFont } from '@/utils/fontLoader';
+
+interface Font {
+  id: string;
+  name: string;
+  filename: string;
+  category: string;
+}
 
 export default function FontLoader() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -10,12 +17,37 @@ export default function FontLoader() {
   useEffect(() => {
     const loadAllFonts = async () => {
       try {
-        // Preload fonts for better performance
-        preloadFonts();
+        // Fetch fonts from API
+        const response = await fetch('/api/fonts');
+        if (!response.ok) {
+          throw new Error('Failed to fetch fonts');
+        }
         
-        // Fonts are now loaded dynamically from the API
-        // This component is kept for compatibility
-        setLoadingProgress(100);
+        const data = await response.json();
+        const fonts: Font[] = data.fonts || [];
+        
+        if (fonts.length === 0) {
+          setFontsLoaded(true);
+          return;
+        }
+
+        // Load fonts with progress tracking
+        let loaded = 0;
+        const total = fonts.length;
+        
+        // Load fonts in batches to show progress
+        for (const font of fonts) {
+          try {
+            await loadFont(font.name, font.filename);
+            loaded++;
+            setLoadingProgress(Math.round((loaded / total) * 100));
+          } catch (error) {
+            console.error(`Error loading font ${font.name}:`, error);
+            loaded++;
+            setLoadingProgress(Math.round((loaded / total) * 100));
+          }
+        }
+        
         setFontsLoaded(true);
       } catch (error) {
         console.error('Error loading fonts:', error);

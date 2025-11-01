@@ -37,3 +37,4 @@ services:
 networks:
   monlam-dev-network:
     driver: bridge
+

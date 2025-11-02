@@ -159,3 +159,24 @@ html {
     gap: 1.5rem;
   }
 }
+
+/* Monlam Tibetan font (local asset) */
+@font-face {
+  font-family: "MonlamTBslim";
+  src: url("../assets/fonts/MonlamTBslim.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  /* Tibetan Unicode block so Latin/etc. fall back to next fonts */
+  unicode-range: U+0F00-0FFF;
+}
+
+/* Global defaults: Monlam first for Tibetan, then Inter/system for others, with line-height: 2 */
+@layer base {
+  html, body {
+    font-family: "MonlamTBslim", Inter, system-ui, sans-serif;
+  }
+  html {
+    @apply leading-loose;
+  }
+}

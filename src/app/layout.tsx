@@ -6,9 +6,9 @@ export const metadata: Metadata = {
   title: 'Monlam Font Viewer',
   description: 'Preview and compare Monlam Tibetan fonts with beautiful typography',
   icons: {
-    icon: '/monlam_logo.png',
-    shortcut: '/monlam_logo.png',
-    apple: '/monlam_logo.png',
+    icon: 'monlam_logo.png',
+    shortcut: 'monlam_logo.png',
+    apple: 'monlam_logo.png',
   },
 }
 

@@ -27,7 +27,7 @@ export default function Home() {
   useEffect(() => {
     const loadFonts = async () => {
       try {
-        const response = await fetch('/api/fonts');
+        const response = await fetch('fonts.json');
         if (response.ok) {
           const data = await response.json();
           setFonts(data.fonts);
@@ -59,7 +59,7 @@ export default function Home() {
 
   const handleDownloadKeyboard = () => {
     const link = document.createElement('a');
-    link.href = '/keyboard/Keyboard.zip';
+    link.href = 'keyboard/Keyboard.zip';
     link.download = 'Keyboard.zip';
     document.body.appendChild(link);
     link.click();

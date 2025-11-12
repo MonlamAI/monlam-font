@@ -24,7 +24,7 @@ export const loadFont = async (fontName: string, fontFilename: string): Promise<
 
   try {
     // Create the font URL
-    const fontUrl = `/fonts/${encodeURIComponent(fontFilename)}`;
+    const fontUrl = `fonts/${encodeURIComponent(fontFilename)}`;
     
     // Use FontFace API if available
     if ('FontFace' in window) {

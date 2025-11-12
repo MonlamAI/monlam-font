@@ -17,8 +17,8 @@ export default function FontLoader() {
   useEffect(() => {
     const loadAllFonts = async () => {
       try {
-        // Fetch fonts from API
-        const response = await fetch('/api/fonts');
+        // Fetch fonts from static JSON
+        const response = await fetch('fonts.json');
         if (!response.ok) {
           throw new Error('Failed to fetch fonts');
         }

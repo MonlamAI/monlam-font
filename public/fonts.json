@@ -1,0 +1,123 @@
+{
+  "fonts": [
+    {
+      "id": "monlam-lakdi-ouchen",
+      "name": "Monlam Lakdi Ouchen",
+      "tibetanName": "སྨོན་ལམ་ལག་བྲིས་དབུ་ཅན།",
+      "filename": "Monlam Lakdi Ouchen.ttf",
+      "category": "དབུ་ཅན།"
+    },
+    {
+      "id": "monlam-lanza-regular",
+      "name": "Monlam Lanza-Regular",
+      "tibetanName": "སྨོན་ལམ་ལཉྫ།",
+      "filename": "Monlam Lanza-Regular.ttf",
+      "category": "ལཉྫ།"
+    },
+    {
+      "id": "monlam-tsikmachok",
+      "name": "Monlam Tsikmachok",
+      "tibetanName": "སྨོན་ལམ་ཚིགས་མ་འཁྱུག",
+      "filename": "Monlam Tsikmachok.ttf",
+      "category": "འཁྱུག"
+    },
+    {
+      "id": "monlam-uni-chouk",
+      "name": "Monlam Uni Chouk",
+      "tibetanName": "སྨོན་ལམ་འཁྱུག",
+      "filename": "Monlam Uni Chouk.ttf",
+      "category": "འཁྱུག"
+    },
+    {
+      "id": "monlam-uni-choukmatik",
+      "name": "Monlam Uni ChoukMatik",
+      "tibetanName": "སྨོན་ལམ་འཁྱུག་མ་ཚིགས།",
+      "filename": "Monlam Uni ChoukMatik.ttf",
+      "category": "འཁྱུག"
+    },
+    {
+      "id": "monlam-uni-dutsa1",
+      "name": "Monlam Uni Dutsa1",
+      "tibetanName": "སྨོན་ལམ་འབྲུ་ཚ་དང་པོ།",
+      "filename": "Monlam Uni Dutsa1.ttf",
+      "category": "འབྲུ་ཚ།"
+    },
+    {
+      "id": "monlam-uni-dutsa2",
+      "name": "Monlam Uni Dutsa2",
+      "tibetanName": "སྨོན་ལམ་འབྲུ་ཚ་གཉིས་པ།",
+      "filename": "Monlam Uni Dutsa2.ttf",
+      "category": "འབྲུ་ཚ།"
+    },
+    {
+      "id": "monlam-uni-ouchan1",
+      "name": "Monlam Uni OuChan1",
+      "tibetanName": "སྨོན་ལམ་དབུ་ཅན་དང་པོ།",
+      "filename": "Monlam Uni OuChan1.ttf",
+      "category": "དབུ་ཅན།"
+    },
+    {
+      "id": "monlam-uni-ouchan2",
+      "name": "Monlam Uni OuChan2",
+      "tibetanName": "སྨོན་ལམ་དབུ་ཅན་གཉིས་པ།",
+      "filename": "Monlam Uni OuChan2.ttf",
+      "category": "དབུ་ཅན།"
+    },
+    {
+      "id": "monlam-uni-ouchan3",
+      "name": "Monlam Uni OuChan3",
+      "tibetanName": "སྨོན་ལམ་དབུ་ཅན་གསུམ་པ།",
+      "filename": "Monlam Uni OuChan3.ttf",
+      "category": "དབུ་ཅན།"
+    },
+    {
+      "id": "monlam-uni-ouchan4",
+      "name": "Monlam Uni OuChan4",
+      "tibetanName": "སྨོན་ལམ་དབུ་ཅན་བཞི་པ།",
+      "filename": "Monlam Uni OuChan4.ttf",
+      "category": "དབུ་ཅན།"
+    },
+    {
+      "id": "monlam-uni-ouchan5",
+      "name": "Monlam Uni OuChan5",
+      "tibetanName": "སྨོན་ལམ་དབུ་ཅན་ལྔ་པ།",
+      "filename": "Monlam Uni OuChan5.ttf",
+      "category": "དབུ་ཅན།"
+    },
+    {
+      "id": "monlam-uni-sans-serif",
+      "name": "Monlam Uni Sans Serif",
+      "tibetanName": "སྨོན་ལམ་ Sans Serif",
+      "filename": "Monlam Uni Sans Serif.ttf",
+      "category": "དབུ་ཅན།"
+    },
+    {
+      "id": "monlam-uni-tiktong",
+      "name": "Monlam Uni TikTong",
+      "tibetanName": "སྨོན་ལམ་ཚིགས་ཐུང་།",
+      "filename": "Monlam Uni TikTong.ttf",
+      "category": "དབུ་མེད་"
+    },
+    {
+      "id": "monlam-uni-tikrang",
+      "name": "Monlam Uni Tikrang",
+      "tibetanName": "སྨོན་ལམ་ཚིགས་རིང་།",
+      "filename": "Monlam Uni Tikrang.ttf",
+      "category": "དབུ་མེད་"
+    },
+    {
+      "id": "monlam-yig-chong",
+      "name": "Monlam yig-chong",
+      "tibetanName": "སྨོན་ལམ་ཡིག་ཆུང་།",
+      "filename": "Monlam yig-chong.TTF",
+      "category": "དབུ་ཅན།"
+    },
+    {
+      "id": "monlamunipaytsik",
+      "name": "MonlamUniPaytsik",
+      "tibetanName": "MonlamUniPaytsik",
+      "filename": "MonlamUniPaytsik.ttf",
+      "category": "འབྲུ་ཚ།"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   // Production optimizations
   compress: true,
   poweredByHeader: false,
@@ -11,7 +12,8 @@ const nextConfig = {
     minimumCacheTTL: 31536000,
   },
   
-  // Font optimization
+  // Headers config (disabled for static hosting)
+  /*
   async headers() {
     return [
       {
@@ -46,6 +48,7 @@ const nextConfig = {
       },
     ]
   },
+  */
 }
 
 module.exports = nextConfig

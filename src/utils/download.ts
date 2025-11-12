@@ -2,7 +2,7 @@ export const downloadFont = async (filename: string, fontName: string) => {
   try {
     // Properly encode the filename for the fetch request
     const encodedFilename = encodeURIComponent(filename);
-    const response = await fetch(`/fonts/${encodedFilename}`);
+    const response = await fetch(`fonts/${encodedFilename}`);
     if (!response.ok) {
       throw new Error(`Failed to download font: ${response.statusText}`);
     }

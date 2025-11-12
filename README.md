@@ -43,11 +43,14 @@ A beautiful web application for previewing and downloading Monlam Tibetan fonts.
    http://localhost:3000
    ```
 
-### Production Build
+### Production Build (Static export)
 
 ```bash
-npm run build
-npm start
+npm run clean && npm run build
+# Output: the static site is generated in the out/ directory
+
+# Optional: preview locally
+npx serve out
 ```
 
 ## Font Management
@@ -74,10 +77,10 @@ Since the admin panel has been removed, you can add fonts manually:
    - Avoid special characters
    - Example: `Monlam-New-Font.ttf`
 
-4. **Restart the application**
+4. **Rebuild to refresh font list (fonts.json)**
    ```bash
+   # Generates public/fonts.json and builds static site to out/
    npm run build
-   npm start
    ```
 
 ### Removing Fonts
@@ -89,10 +92,9 @@ Since the admin panel has been removed, you can add fonts manually:
    public/fonts/
    ```
 
-2. **Restart the application**
+2. **Rebuild to refresh font list (fonts.json)**
    ```bash
    npm run build
-   npm start
    ```
 
 ### Font Categories
@@ -108,66 +110,67 @@ Fonts are automatically categorized based on filename:
 ## Project Structure
 
 ```
-tibetan-font-viewer/
+monlam-font/
 ├── public/
-│   └── fonts/           # Font files directory
+│   ├── fonts/                 # Font files directory (.ttf, .otf)
+│   └── fonts.json             # Generated font catalog used by the UI
+├── scripts/
+│   └── generate-fonts-json.mjs# Build-time generator for public/fonts.json
 ├── src/
-│   ├── app/            # Next.js app directory
-│   │   ├── page.tsx    # Main page
-│   │   └── api/        # API routes
-│   ├── components/     # React components
-│   └── utils/          # Utility functions
-├── Dockerfile          # Docker configuration
-├── docker-compose.yml  # Docker Compose setup
-└── nginx.conf          # Nginx configuration
+│   ├── app/                   # Next.js app directory
+│   │   ├── page.tsx           # Main page (client)
+│   │   ├── layout.tsx         # Root layout (client FontLoader)
+│   │   └── api/               # API routes (disabled for static export)
+│   ├── components/            # React components
+│   └── utils/                 # Utility functions
+├── next.config.js             # output: 'export' (static)
+└── package.json               # scripts incl. prebuild to generate fonts.json
 ```
 
-## API Endpoints
+## Static Data (replaces API endpoints)
 
-- `GET /api/fonts` - Get list of available fonts
-- `GET /api/health` - Health check endpoint
+- `public/fonts.json` - The UI loads the font list from this file at runtime.
+  - It is generated automatically during `npm run build` by `scripts/generate-fonts-json.mjs`.
+  - If you add or remove fonts, run `npm run build` to refresh it.
+- The `/api/fonts` and `/api/health` endpoints are disabled in static mode (no server on GitHub Pages).
 
 ## Deployment
 
-### Docker Deployment
-
-1. **Build Docker image**
-
+### GitHub Pages (recommended)
+1. Build the static site:
    ```bash
-   docker build -t monlam-font-viewer .
+   npm run clean && npm run build
    ```
+2. Deploy the `out/` directory to GitHub Pages:
+   - Option A: Push `out/` to a `gh-pages` branch and set Pages to that branch.
+   - Option B: Use a GitHub Action to publish `out/` to Pages.
+3. Project pages (https://username.github.io/repo-name):
+   - This app uses relative asset paths, so it works under a subpath.
+   - You can optionally set `basePath`/`assetPrefix` in `next.config.js` to `/repo-name`.
 
-2. **Run with Docker Compose**
-   ```bash
-   docker-compose up -d
-   ```
-
-### Nginx Deployment
-
-1. **Use the provided Nginx configuration**
-
-   ```bash
-   cp nginx.conf /etc/nginx/sites-available/
-   ```
-
-2. **Enable the site**
-   ```bash
-   ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
-   ```
+### Legacy server deployments (optional)
+- Docker and Nginx configs can be used for server hosting, but are unnecessary for GitHub Pages.
 
 ## Development
 
 ### Available Scripts
 
 - `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm start` - Start production server
+- `npm run clean` - Remove `.next` and `out/`
+- `npm run build` - Generate `public/fonts.json` and static site to `out/`
+- `npm start` - Start production server (legacy; not used for GitHub Pages)
 - `npm run lint` - Run ESLint
+
+Note: During development, if you add/remove fonts and want the UI to reflect changes without a full build, run:
+```bash
+node scripts/generate-fonts-json.mjs
+```
+This updates `public/fonts.json` that the dev server reads.
 
 ### Adding New Features
 
 1. **Components** - Add to `src/components/`
-2. **API Routes** - Add to `src/app/api/`
+2. **API Routes** - `src/app/api/` (disabled in static export)
 3. **Utilities** - Add to `src/utils/`
 
 ## Troubleshooting
@@ -176,7 +179,14 @@ tibetan-font-viewer/
 
 1. **Check file format** - Ensure fonts are `.ttf` or `.otf`
 2. **Check file location** - Fonts must be in `public/fonts/`
-3. **Restart application** - Run `npm run build && npm start`
+3. **Regenerate font list** - Run `npm run build` (or `node scripts/generate-fonts-json.mjs` during dev)
+4. **Confirm fonts.json** - Ensure `public/fonts.json` includes your new fonts
+
+### Security/Headers
+- Custom response headers from `next.config.js` (e.g., `X-Frame-Options`, `Cache-Control`) do not apply on GitHub Pages, since there is no Next.js server. If you need custom headers, consider a host that supports them (e.g., Vercel/Netlify) or a CDN/proxy like Cloudflare.
+
+### Health Check
+- The `/api/health` endpoint was removed in static mode. External uptime checks against it will 404 on Pages.
 
 ### Build Errors
 

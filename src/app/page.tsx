@@ -59,8 +59,8 @@ export default function Home() {
 
   const handleDownloadKeyboard = () => {
     const link = document.createElement('a');
-    link.href = 'keyboard/Keyboard.zip';
-    link.download = 'Keyboard.zip';
+    link.href = 'keyboard/MonlamKeyboard.zip';
+    link.download = 'MonlamKeyboard.zip';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

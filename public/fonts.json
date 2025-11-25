@@ -17,7 +17,7 @@
     {
       "id": "monlam-tsikmachok",
       "name": "Monlam Tsikmachok",
-      "tibetanName": "སྨོན་ལམ་ཚིགས་མ་འཁྱུག",
+      "tibetanName": "སྨོན་ལམ་ཚུགས་མ་འཁྱུག",
       "filename": "Monlam Tsikmachok.ttf",
       "category": "འཁྱུག"
     },
@@ -31,7 +31,7 @@
     {
       "id": "monlam-uni-choukmatik",
       "name": "Monlam Uni ChoukMatik",
-      "tibetanName": "སྨོན་ལམ་འཁྱུག་མ་ཚིགས།",
+      "tibetanName": "སྨོན་ལམ་འཁྱུག་མ་ཚུགས།",
       "filename": "Monlam Uni ChoukMatik.ttf",
       "category": "འཁྱུག"
     },
@@ -94,14 +94,14 @@
     {
       "id": "monlam-uni-tiktong",
       "name": "Monlam Uni TikTong",
-      "tibetanName": "སྨོན་ལམ་ཚིགས་ཐུང་།",
+      "tibetanName": "སྨོན་ལམ་ཚུགས་ཐུང་།",
       "filename": "Monlam Uni TikTong.ttf",
       "category": "དབུ་མེད་"
     },
     {
       "id": "monlam-uni-tikrang",
       "name": "Monlam Uni Tikrang",
-      "tibetanName": "སྨོན་ལམ་ཚིགས་རིང་།",
+      "tibetanName": "སྨོན་ལམ་ཚུགས་རིང་།",
       "filename": "Monlam Uni Tikrang.ttf",
       "category": "དབུ་མེད་"
     },
@@ -115,7 +115,7 @@
     {
       "id": "monlamunipaytsik",
       "name": "MonlamUniPaytsik",
-      "tibetanName": "MonlamUniPaytsik",
+      "tibetanName": "སྨོན་ལམ་དཔེ་ཚུགས།",
       "filename": "MonlamUniPaytsik.ttf",
       "category": "འབྲུ་ཚ།"
     }

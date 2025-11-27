@@ -17,7 +17,7 @@ const fontNameTibetan = {
   'Monlam Uni Tikrang': 'སྨོན་ལམ་ཚུགས་རིང་།',
   'Monlam Uni TikTong': 'སྨོན་ལམ་ཚུགས་ཐུང་།',
   'Monlam Uni Sans Serif': 'སྨོན་ལམ་ Sans Serif',
-  'MonlamUniPayTsik': 'སྨོན་ལམ་དཔེ་ཚུགས།',
+  'MonlamUniPaytsik': 'སྨོན་ལམ་དཔེ་ཚུགས།',
   'Monlam Lakdi Ouchen': 'སྨོན་ལམ་ལག་བྲིས་དབུ་ཅན།',
   'Monlam Lanza-Regular': 'སྨོན་ལམ་ལཉྫ།',
   'Monlam Tsikmachok': 'སྨོན་ལམ་ཚུགས་མ་འཁྱུག',
